@@ -76,7 +76,7 @@ public class Breakout extends GraphicsProgram {
 	private double vy=-rgen.nextDouble(1.0, 3.0);
 	
 /** Animation refresh rate*/
-	private static final int FRAMES_PER_SEC = 3;
+	private static final int FRAMES_PER_SEC = 60;
 	
 /** Corner intersected; 1: right/left 2: up/down*/
 	private int bounceDirection;
@@ -179,15 +179,15 @@ public class Breakout extends GraphicsProgram {
 		if (checkCorner(ball.getX()+BALL_RADIUS,ball.getY()-1)!=null){
 			bounceDirection=2;
 			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY()-1);
-		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2)!=null){
+		} else if (checkCorner(ball.getX()+2*BALL_RADIUS+1,ball.getY()+BALL_RADIUS)!=null){
 			bounceDirection=1;
-			return checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2);
-		} else if (checkCorner(ball.getX(),ball.getY()+BALL_RADIUS/2)!=null){
+			return checkCorner(ball.getX()+2*BALL_RADIUS+1,ball.getY()+BALL_RADIUS);
+		} else if (checkCorner(ball.getX()-1,ball.getY()+BALL_RADIUS)!=null){
 			bounceDirection=1;
-			return checkCorner(ball.getX(),ball.getY()+BALL_RADIUS/2);
-		} else if (checkCorner(ball.getX()+2*BALL_RADIUS/2,ball.getY()+2*BALL_RADIUS)!=null){
+			return checkCorner(ball.getX()-1,ball.getY()+BALL_RADIUS);
+		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+2*BALL_RADIUS+1)!=null){
 			bounceDirection=2;
-			return checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY()+2*BALL_RADIUS);
+			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY()+2*BALL_RADIUS+1);
 		} else {
 			return null;
 		}
