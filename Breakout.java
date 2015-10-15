@@ -154,6 +154,7 @@ public class Breakout extends GraphicsProgram {
 			}
 			if(ball.getY()>=HEIGHT) {
 				LIVES = "2";
+				add(LIVES_COUNTER);
 			}
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
