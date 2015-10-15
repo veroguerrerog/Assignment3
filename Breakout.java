@@ -207,7 +207,8 @@ public class Breakout extends GraphicsProgram {
 			run();
 		} else {
 			GLabel gameOver = new GLabel ("YOU SUCK!");
-			gameOver.setLocation(20,20);
+			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2-gameOver.getHeight()/2);
+			gameOver.setFont("Cambria-60");
 			add (gameOver);
 			
 		}
