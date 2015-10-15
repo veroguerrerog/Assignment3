@@ -206,7 +206,10 @@ public class Breakout extends GraphicsProgram {
 		if(turns>0) {
 			run();
 		} else {
-			println ("YOU SUCK!");
+			GLabel gameOver = new GLabel ("YOU SUCK!");
+			gameOver.setLocation(20,20);
+			add (gameOver);
+			
 		}
 	}
 	//This method returns the object the ball collides with, if there is a collision.
