@@ -156,10 +156,18 @@ public class Breakout extends GraphicsProgram {
 			}
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
-				if(checkCorner(paddle.getX(),paddle.getY())==ball) {
+				if (checkCorner(paddle.getX(),paddle.getY())==ball) {
 					vx=-Math.sqrt(vx*vx);
+					while (ball.getY()>HEIGHT) {
+						ball.move(vx, vy);
+						pause(1000/FRAMES_PER_SEC);
+					}
 				} else if (checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY())==ball) {
 					vx=Math.sqrt(vx*vx);
+					while (ball.getY()>HEIGHT) {
+						ball.move(vx, vy);
+						pause(1000/FRAMES_PER_SEC);
+					}
 				} else {
 					vy=-Math.sqrt(vy*vy);
 				}
