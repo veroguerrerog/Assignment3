@@ -98,9 +98,9 @@ public class Breakout extends GraphicsProgram {
 	}
 	private void setup(){
 		this.setSize(WIDTH, HEIGHT);	//This sets the size of the window to the correct dimensions
-		if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
-			createGrid();
-		}
+		//if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
+		//	createGrid();
+		//}
 		//Initializing velocity
 		vx=rgen.nextDouble(1.0, 3.0);
 		vy=-rgen.nextDouble(1.0, 3.0);
@@ -158,22 +158,8 @@ public class Breakout extends GraphicsProgram {
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
 				bouncePaddle();
-			} else if (collider!=null){
-				if(bounceDirection==1){
-					vx=-Math.sqrt(vx*vx);
-				}
-				if (bounceDirection==2){
-					vx=Math.sqrt(vx*vx);
-				}
-				if(bounceDirection==3){
-					vy=Math.sqrt(vy*vy);
-				}
-				if (bounceDirection==4){
-					vy=-Math.sqrt(vy*vy);
-				}
-				if(collider!=paddle){
-					remove(collider);
-				}
+			} else if (collider!=null && collider!=livesCounter){
+				bounceBrick(collider);
 			}
 		}
 		decreaseLife();
@@ -228,6 +214,24 @@ public class Breakout extends GraphicsProgram {
 			}
 		} else {
 			vy=-Math.sqrt(vy*vy);
+		}
+	}
+	
+	private void bounceBrick(GObject collider){
+		if(bounceDirection==1){
+			vx=-Math.sqrt(vx*vx);
+		}
+		if (bounceDirection==2){
+			vx=Math.sqrt(vx*vx);
+		}
+		if(bounceDirection==3){
+			vy=Math.sqrt(vy*vy);
+		}
+		if (bounceDirection==4){
+			vy=-Math.sqrt(vy*vy);
+		}
+		if(collider!=paddle){
+			remove(collider);
 		}
 	}
 	
