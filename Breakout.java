@@ -178,7 +178,7 @@ public class Breakout extends GraphicsProgram {
 	private GObject getCollidingObject(){
 		if (checkCorner(ball.getX()+BALL_RADIUS,ball.getY())!=null){
 			bounceDirection=2;
-			return checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY());
+			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY());
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2)!=null){
 			bounceDirection=1;
 			return checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2);
