@@ -207,6 +207,7 @@ public class Breakout extends GraphicsProgram {
 		livesCounter = new GLabel ("LIVES: " + turns);
 		add(livesCounter);
 		if(turns>0) {
+			init();
 			run();
 		} else {
 			GLabel gameOver = new GLabel ("YOU SUCK!");
