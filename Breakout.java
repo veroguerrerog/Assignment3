@@ -57,10 +57,10 @@ public class Breakout extends GraphicsProgram {
 	private static final int BRICK_Y_OFFSET = 70;
 
 /** Number of turns */
-	private static String NTURNS = "3";
+	private static int NTURNS = 3;
 	
 /** Counts lives left before Game Over*/	
-	private GLabel LIVES_COUNTER = new GLabel (NTURNS);
+	private GLabel LIVES_COUNTER = new GLabel ("LIVES: " + NTURNS);
 
 /** Paddle definition*/
 	private GRect paddle = new GRect(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
