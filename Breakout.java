@@ -113,7 +113,7 @@ public class Breakout extends GraphicsProgram {
 		add(ball);
 		//Adding the lives counter to the canvas.
 		livesCounter.setFont("Cambria-40");
-		livesCounter.setLocation(WIDTH-40, 40);
+		livesCounter.setLocation(WIDTH-livesCounter.getWidth(), livesCounter.getHeight());
 		add (livesCounter);
 		if (rgen.nextBoolean(0.5)) vx = -vx;
 	}
