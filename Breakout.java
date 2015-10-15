@@ -156,7 +156,7 @@ public class Breakout extends GraphicsProgram {
 			}
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
-				if(checkCorner(paddle.getX(),paddle.getY()+PADDLE_HEIGHT/2)!=null||checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY()+PADDLE_HEIGHT/2)!=null) {
+				if(checkCorner(paddle.getX(),paddle.getY()+PADDLE_HEIGHT/2)==ball||checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY()+PADDLE_HEIGHT/2)==ball) {
 					vx=-vx;
 				} else {
 				vy=-vy;
