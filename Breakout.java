@@ -194,7 +194,8 @@ public class Breakout extends GraphicsProgram {
 			}
 			if(ball.getY()>=HEIGHT) {
 				turns--;
-				livesCounter = new GLabel ("Lives: " + turns);
+				livesCounter = new GLabel ("LIVES: " + turns);
+				
 				add(livesCounter);
 				setup();
 			}
