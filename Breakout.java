@@ -164,13 +164,13 @@ public class Breakout extends GraphicsProgram {
 				if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
 					vx=-Math.sqrt(vx*vx);
 					while (ball.getY()<HEIGHT) {
-						ball.move(vx, vy);
+						ball.move(vx, Math.sqrt(vy*vy));
 						pause(1000/FRAMES_PER_SEC);
 					}
 				} else if (checkCorner(paddleTop.getX()+PADDLE_WIDTH,paddleTop.getY())==ball) {
 					vx=Math.sqrt(vx*vx);
 					while (ball.getY()<HEIGHT) {
-						ball.move(vx, vy);
+						ball.move(vx, Math.sqrt(vy*vy));
 						pause(1000/FRAMES_PER_SEC);
 					}
 				} else {
