@@ -203,7 +203,6 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 		decreaseLife();
-		}
 	}
 	//This method returns the object the ball collides with, if there is a collision.
 	private GObject getCollidingObject(){
