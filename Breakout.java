@@ -159,12 +159,7 @@ public class Breakout extends GraphicsProgram {
 		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && ball.getY()<HEIGHT && turns>0){
 			ball.move(vx, vy);
 			pause(1000/FRAMES_PER_SEC);
-			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
-				vx=-vx;
-			}
-			if(ball.getY()<=0){
-				vy=-vy;
-			}
+			bounceWalls();
 			GObject collider = getCollidingObject();
 			if(collider == paddleTop){
 				if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
@@ -202,6 +197,16 @@ public class Breakout extends GraphicsProgram {
 		}
 		decreaseLife();
 	}
+	
+	private void bounceWalls(){
+		if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
+			vx=-vx;
+		}
+		if(ball.getY()<=0){
+			vy=-vy;
+		}
+	}
+	
 	//This method returns the object the ball collides with, if there is a collision.
 	private GObject getCollidingObject(){
 		if (checkCorner(ball.getX()+2*BALL_RADIUS+1,ball.getY()+BALL_RADIUS)!=null){
