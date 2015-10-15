@@ -57,10 +57,13 @@ public class Breakout extends GraphicsProgram {
 	private static final int BRICK_Y_OFFSET = 70;
 
 /** Number of turns */
-	private static int NTURNS = 3;
+	private static final int NTURNS = 3;
+	
+/**Enables editing of turns*/	
+	int turns = NTURNS;
 	
 /** Counts lives left before Game Over*/	
-	private GLabel LIVES_COUNTER = new GLabel ("LIVES: " + NTURNS);
+	private GLabel livesCounter = new GLabel ("LIVES: " + NTURNS);
 
 /** Paddle definition*/
 	private GRect paddle = new GRect(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
@@ -109,9 +112,9 @@ public class Breakout extends GraphicsProgram {
 		ball.setFillColor(Color.BLUE);
 		add(ball);
 		//Adding the lives counter to the canvas.
-		LIVES_COUNTER.setFont("Cambria-40");
-		LIVES_COUNTER.setLocation(WIDTH-40, 40);
-		add (LIVES_COUNTER);
+		livesCounter.setFont("Cambria-40");
+		livesCounter.setLocation(WIDTH-40, 40);
+		add (livesCounter);
 		if (rgen.nextBoolean(0.5)) vx = -vx;
 	}
 	//This method creates a grid of colored blocks.
@@ -146,7 +149,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	//This method makes the ball move(hopefully)
 	private void animateBall(){
-		while(ball.getX()>0||ball.getY()>0||ball.getX()<WIDTH||ball.getY()<HEIGHT){
+		while(ball.getX()>0&&ball.getY()>0&&ball.getX()<WIDTH&&ball.getY()<HEIGHT&&turns>0){
 			ball.move(vx, vy);
 			pause(1000/FRAMES_PER_SEC);
 			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
@@ -154,10 +157,6 @@ public class Breakout extends GraphicsProgram {
 			}
 			if(ball.getY()<=0){
 				vy=-vy;
-			}
-			if(ball.getY()>=HEIGHT) {
-				NTURNS = "2";
-				add(LIVES_COUNTER);
 			}
 			GObject collider = getCollidingObject();
 			if(collider == paddleTop){
@@ -192,6 +191,12 @@ public class Breakout extends GraphicsProgram {
 				if(collider!=paddleTop&&collider!=paddle){
 					remove(collider);
 				}
+			}
+			if(ball.getY()>=HEIGHT) {
+				turns--;
+				livesCounter = new GLabel ("Lives: " + turns);
+				add(livesCounter);
+				setup();
 			}
 		}
 	}
