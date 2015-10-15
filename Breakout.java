@@ -70,7 +70,7 @@ public class Breakout extends GraphicsProgram {
 	private GLine paddleTop = new GLine(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, getWidth()/2-PADDLE_WIDTH/2+PADDLE_WIDTH, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET);
 	
 /** Ball definition*/
-	private GOval ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
+	private GOval ball;
 	
 /**random number generator*/
 	private RandomGenerator rgen = RandomGenerator.getInstance();
@@ -110,6 +110,7 @@ public class Breakout extends GraphicsProgram {
 		paddleTop.setColor(Color.RED);
 		add(paddleTop);
 		//Adding the ball to the canvas.
+		ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setColor(Color.BLUE);
 		ball.setFilled(true);
 		ball.setFillColor(Color.BLUE);
