@@ -158,6 +158,7 @@ public class Breakout extends GraphicsProgram {
 			if(collider == paddle){
 				if(checkCorner(paddle.getX(),paddle.getY()+PADDLE_HEIGHT/2)==ball||checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY()+PADDLE_HEIGHT/2)==ball) {
 					vx=-vx;
+					pause(30);
 				} else {
 				vy=-vy;
 				}
