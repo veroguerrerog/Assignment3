@@ -57,7 +57,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int BRICK_Y_OFFSET = 70;
 
 /** Number of turns */
-	private static final String NTURNS = "3";
+	private static String NTURNS = "3";
 	
 /** Counts lives left before Game Over*/	
 	private GLabel LIVES_COUNTER = new GLabel (NTURNS);
@@ -151,7 +151,7 @@ public class Breakout extends GraphicsProgram {
 				vy=-vy;
 			}
 			if(ball.getY()>=HEIGHT) {
-				LIVES = "2";
+				NTURNS = "2";
 				add(LIVES_COUNTER);
 			}
 			GObject collider = getCollidingObject();
