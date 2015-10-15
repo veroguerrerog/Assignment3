@@ -98,7 +98,9 @@ public class Breakout extends GraphicsProgram {
 		//This sets the size of the window to the correct dimensions, because our window was initializing 22 pixels too narrow.
 		this.setSize(WIDTH, HEIGHT);
 		//Creates the grid of colored bricks
-		createGrid();
+		if (turns==NTURNS) {
+			createGrid();
+		}
 		//Initializing velocity
 		vx=rgen.nextDouble(1.0, 3.0);
 		vy=-rgen.nextDouble(1.0, 3.0);
