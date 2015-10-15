@@ -98,10 +98,8 @@ public class Breakout extends GraphicsProgram {
 		animateBall();
 	}
 	private void setup(){
-		//This sets the size of the window to the correct dimensions
-		this.setSize(WIDTH, HEIGHT);
-		//Creates the grid of colored bricks only the first round of the game
-		if (turns==NTURNS){
+		this.setSize(WIDTH, HEIGHT);	//This sets the size of the window to the correct dimensions
+		if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
 			createGrid();
 		}
 		//Initializing velocity
