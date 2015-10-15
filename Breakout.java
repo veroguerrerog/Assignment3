@@ -195,7 +195,7 @@ public class Breakout extends GraphicsProgram {
 		}
 		turns--;
 		if(turns>0) {
-			remove(livesCounter);
+			//remove(livesCounter);
 			livesCounter = new GLabel ("LIVES: " + turns);
 			add(livesCounter);
 			run();
