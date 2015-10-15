@@ -103,7 +103,7 @@ public class Breakout extends GraphicsProgram {
 		ball.setFillColor(Color.BLUE);
 		add(ball);
 		LIFE_COUNTER.setFont("Cambria-40");
-		LIFE_COUNTER.setLocation(APPLICATION_WIDTH/16, 16);
+		LIFE_COUNTER.setLocation(50, 50);
 		if (rgen.nextBoolean(0.5)) vx = -vx;
 	}
 	//This method creates a grid of colored blocks.
