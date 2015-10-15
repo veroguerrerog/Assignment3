@@ -189,7 +189,9 @@ public class Breakout extends GraphicsProgram {
 				if (bounceDirection==4){
 					vy=-Math.sqrt(vy*vy);
 				}
-				remove(collider);
+				if(collider!=paddleTop){
+					remove(collider);
+				}
 			}
 		}
 	}
