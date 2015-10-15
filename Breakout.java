@@ -78,7 +78,7 @@ public class Breakout extends GraphicsProgram {
 /** Animation refresh rate*/
 	private static final int FRAMES_PER_SEC = 60;
 	
-/** Corner intersected; 1: right/left 2: up/down*/
+/** Side intersected; 1: right  2: left  3: up  4: down*/
 	private int bounceDirection;
 
 	
@@ -165,10 +165,16 @@ public class Breakout extends GraphicsProgram {
 				}
 			} else if (collider!=null){
 				if(bounceDirection==1){
-					vx=-vx;
+					vx=-Math.sqrt(vx*vx);
 				}
 				if (bounceDirection==2){
-					vy=-vy;
+					vx=Math.sqrt(vx*vx);
+				}
+				if(bounceDirection==3){
+					vy=Math.sqrt(vy*vy);
+				}
+				if (bounceDirection==4){
+					vy=-Math.sqrt(vy*vy);
 				}
 				remove(collider);
 			}
@@ -177,16 +183,16 @@ public class Breakout extends GraphicsProgram {
 	//This method returns the object the ball collides with, if there is a collision.
 	private GObject getCollidingObject(){
 		if (checkCorner(ball.getX()+BALL_RADIUS,ball.getY()-1)!=null){
-			bounceDirection=2;
+			bounceDirection=3;
 			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY()-1);
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS+1,ball.getY()+BALL_RADIUS)!=null){
 			bounceDirection=1;
 			return checkCorner(ball.getX()+2*BALL_RADIUS+1,ball.getY()+BALL_RADIUS);
 		} else if (checkCorner(ball.getX()-1,ball.getY()+BALL_RADIUS)!=null){
-			bounceDirection=1;
+			bounceDirection=2;
 			return checkCorner(ball.getX()-1,ball.getY()+BALL_RADIUS);
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+2*BALL_RADIUS+1)!=null){
-			bounceDirection=2;
+			bounceDirection=4;
 			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY()+2*BALL_RADIUS+1);
 		} else {
 			return null;
