@@ -84,7 +84,7 @@ public class Breakout extends GraphicsProgram {
 	private void setup(){
 		addMouseListeners();
 		//This sets the size of the window to the correct dimensions, because our window was initializing 22 pixels too narrow.
-		this.setSize(WIDTH+22, HEIGHT+86);//Correcting for window initializing errors.
+		this.setSize(WIDTH, HEIGHT);//Correcting for window initializing errors.
 		//Creates the grid of colored bricks
 		createGrid();
 		//Adding the paddle to the canvas.
