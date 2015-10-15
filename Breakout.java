@@ -67,7 +67,6 @@ public class Breakout extends GraphicsProgram {
 
 /** Paddle definition*/
 	private GRect paddle = new GRect(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
-	//private GLine paddleTop = new GLine(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, getWidth()/2-PADDLE_WIDTH/2+PADDLE_WIDTH, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET);
 	
 /** Ball definition*/
 	private GOval ball;
@@ -109,9 +108,6 @@ public class Breakout extends GraphicsProgram {
 		paddle.setFilled(true);
 		paddle.setFillColor(Color.BLACK);
 		add(paddle);
-		//Adding the paddle top to the canvas.
-		//paddleTop.setColor(Color.BLACK);
-		//add(paddleTop);
 		//Adding the ball to the canvas.
 		ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setColor(Color.BLUE);
@@ -151,7 +147,6 @@ public class Breakout extends GraphicsProgram {
 	public void mouseMoved(MouseEvent e){
 		if(e.getX()>PADDLE_WIDTH/2&&e.getX()<getWidth()-PADDLE_WIDTH/2){
 			paddle.setLocation(e.getX()-PADDLE_WIDTH/2,getHeight()-PADDLE_HEIGHT-PADDLE_Y_OFFSET);
-			//paddleTop.setLocation(e.getX()-PADDLE_WIDTH/2,getHeight()-PADDLE_HEIGHT-PADDLE_Y_OFFSET);
 		}
 	}
 	//This method makes the ball move(hopefully)
