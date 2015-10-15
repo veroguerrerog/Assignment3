@@ -101,7 +101,7 @@ public class Breakout extends GraphicsProgram {
 		paddle.setFillColor(Color.BLACK);
 		add(paddle);
 		//Adding the paddle top to the canvas.
-		paddleTop.setColor(Color.YELLOW);
+		paddleTop.setColor(Color.RED);
 		add(paddleTop);
 		//Adding the ball to the canvas.
 		ball.setColor(Color.BLUE);
