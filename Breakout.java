@@ -79,7 +79,7 @@ public class Breakout extends GraphicsProgram {
 	private int bounceDirection;
 	
 /** Starting number of lives*/
-	private int LIVES = 3;
+	private String LIVES = "3";
 	
 /** Counts lives left before Game Over*/	
 	private GLabel LIVES_COUNTER = new GLabel (LIVES);
@@ -153,7 +153,7 @@ public class Breakout extends GraphicsProgram {
 				vy=-vy;
 			}
 			if(ball.getY()>=HEIGHT) {
-				LIVES--;
+				LIVES = "2";
 			}
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
