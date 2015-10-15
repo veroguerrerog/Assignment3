@@ -67,7 +67,7 @@ public class Breakout extends GraphicsProgram {
 
 /** Paddle definition*/
 	private GRect paddle = new GRect(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
-	private GLine paddleTop = new GLine(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, getWidth()/2-PADDLE_WIDTH/2+PADDLE_WIDTH, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET);
+	//private GLine paddleTop = new GLine(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, getWidth()/2-PADDLE_WIDTH/2+PADDLE_WIDTH, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET);
 	
 /** Ball definition*/
 	private GOval ball;
@@ -110,8 +110,8 @@ public class Breakout extends GraphicsProgram {
 		paddle.setFillColor(Color.BLACK);
 		add(paddle);
 		//Adding the paddle top to the canvas.
-		paddleTop.setColor(Color.BLACK);
-		add(paddleTop);
+		//paddleTop.setColor(Color.BLACK);
+		//add(paddleTop);
 		//Adding the ball to the canvas.
 		ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setColor(Color.BLUE);
@@ -151,7 +151,7 @@ public class Breakout extends GraphicsProgram {
 	public void mouseMoved(MouseEvent e){
 		if(e.getX()>PADDLE_WIDTH/2&&e.getX()<getWidth()-PADDLE_WIDTH/2){
 			paddle.setLocation(e.getX()-PADDLE_WIDTH/2,getHeight()-PADDLE_HEIGHT-PADDLE_Y_OFFSET);
-			paddleTop.setLocation(e.getX()-PADDLE_WIDTH/2,getHeight()-PADDLE_HEIGHT-PADDLE_Y_OFFSET);
+			//paddleTop.setLocation(e.getX()-PADDLE_WIDTH/2,getHeight()-PADDLE_HEIGHT-PADDLE_Y_OFFSET);
 		}
 	}
 	//This method makes the ball move(hopefully)
@@ -161,14 +161,14 @@ public class Breakout extends GraphicsProgram {
 			pause(1000/FRAMES_PER_SEC);
 			bounceWalls();
 			GObject collider = getCollidingObject();
-			if(collider == paddleTop){
-				if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
+			if(collider == paddle){
+				if (checkCorner(paddle.getX(),paddle.getY())==ball) {
 					vx=-Math.sqrt(vx*vx);
 					while (ball.getY()<HEIGHT) {
 						ball.move(vx, Math.sqrt(vy*vy));
 						pause(1000/FRAMES_PER_SEC);
 					}
-				} else if (checkCorner(paddleTop.getX()+PADDLE_WIDTH,paddleTop.getY())==ball) {
+				} else if (checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY())==ball) {
 					vx=Math.sqrt(vx*vx);
 					while (ball.getY()<HEIGHT) {
 						ball.move(vx, Math.sqrt(vy*vy));
@@ -190,7 +190,7 @@ public class Breakout extends GraphicsProgram {
 				if (bounceDirection==4){
 					vy=-Math.sqrt(vy*vy);
 				}
-				if(collider!=paddleTop&&collider!=paddle){
+				if(collider!=paddle){
 					remove(collider);
 				}
 			}
