@@ -176,9 +176,9 @@ public class Breakout extends GraphicsProgram {
 	}
 	//This method returns the object the ball collides with, if there is a collision.
 	private GObject getCollidingObject(){
-		if (checkCorner(ball.getX()+BALL_RADIUS,ball.getY())!=null){
+		if (checkCorner(ball.getX()+BALL_RADIUS,ball.getY()-1)!=null){
 			bounceDirection=2;
-			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY());
+			return checkCorner(ball.getX()+BALL_RADIUS,ball.getY()-1);
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2)!=null){
 			bounceDirection=1;
 			return checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2);
