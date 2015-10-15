@@ -202,19 +202,7 @@ public class Breakout extends GraphicsProgram {
 				}
 			}
 		}
-		turns--;
-		remove(livesCounter);
-		livesCounter = new GLabel ("LIVES: " + turns);
-		add(livesCounter);
-		if(turns>0) {
-			init();
-			run();
-		} else {
-			GLabel gameOver = new GLabel ("YOU SUCK!");
-			gameOver.setFont("Cambria-60");
-			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
-			add (gameOver);
-			
+		decreaseLife();
 		}
 	}
 	//This method returns the object the ball collides with, if there is a collision.
@@ -236,7 +224,24 @@ public class Breakout extends GraphicsProgram {
 			return null;
 		}
 	}
+	
 	private GObject checkCorner(double x, double y){
 		return getElementAt(x,y);
+	}
+	
+	private void decreaseLife(){
+		turns--;
+		remove(livesCounter);
+		livesCounter = new GLabel ("LIVES: " + turns);
+		add(livesCounter);
+		if(turns>0) {
+			init();
+			run();
+		} else {
+			GLabel gameOver = new GLabel ("YOU SUCK!");
+			gameOver.setFont("Cambria-60");
+			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
+			add (gameOver);
+		}
 	}
 }
