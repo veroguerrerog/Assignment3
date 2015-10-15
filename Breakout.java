@@ -109,7 +109,7 @@ public class Breakout extends GraphicsProgram {
 		paddle.setFillColor(Color.BLACK);
 		add(paddle);
 		//Adding the paddle top to the canvas.
-		paddleTop.setColor(Color.RED);
+		paddleTop.setColor(Color.BLACK);
 		add(paddleTop);
 		//Adding the ball to the canvas.
 		ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
@@ -200,10 +200,10 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 		turns--;
+		remove(livesCounter);
+		livesCounter = new GLabel ("LIVES: " + turns);
+		add(livesCounter);
 		if(turns>0) {
-			remove(livesCounter);
-			livesCounter = new GLabel ("LIVES: " + turns);
-			add(livesCounter);
 			run();
 		} else {
 			println ("YOU SUCK!");
