@@ -76,7 +76,7 @@ public class Breakout extends GraphicsProgram {
 	private double vy=-rgen.nextDouble(1.0, 3.0);
 	
 /** Animation refresh rate*/
-	private static final int FRAMES_PER_SEC = 60;
+	private static final int FRAMES_PER_SEC = 80;
 	
 /** Side intersected; 1: right  2: left  3: up  4: down*/
 	private int bounceDirection;
