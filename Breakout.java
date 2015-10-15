@@ -161,63 +161,48 @@ public class Breakout extends GraphicsProgram {
 		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && ball.getY()<HEIGHT && turns>0){
 			ball.move(vx, vy);
 			pause(1000/FRAMES_PER_SEC);
-			changeBallDirection();
-		}
-		turns--;
-		remove(livesCounter);
-		livesCounter = new GLabel ("LIVES: " + turns);
-		add(livesCounter);
-		if(turns>0) {
-			run();
-		} else {
-			GLabel gameOver = new GLabel ("YOU SUCK!");
-			gameOver.setFont("Cambria-60");
-			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
-			add (gameOver);
-		}
-	}
-	
-	private void changeBallDirection(){
-		if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
-			vx=-vx;
-		}
-		if(ball.getY()<=0){
-			vy=-vy;
-		}
-		GObject collider = getCollidingObject();
-		if(collider == paddleTop){
-			if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
-				vx=-Math.sqrt(vx*vx);
-				while (ball.getY()<HEIGHT) {
-					ball.move(vx, Math.sqrt(vy*vy));
-					pause(1000/FRAMES_PER_SEC);
+			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
+				vx=-vx;
+			}
+			if(ball.getY()<=0){
+				vy=-vy;
+			}
+			GObject collider = getCollidingObject();
+			if(collider == paddleTop){
+				if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
+					vx=-Math.sqrt(vx*vx);
+					while (ball.getY()<HEIGHT) {
+						ball.move(vx, Math.sqrt(vy*vy));
+						pause(1000/FRAMES_PER_SEC);
+					}
+				} else if (checkCorner(paddleTop.getX()+PADDLE_WIDTH,paddleTop.getY())==ball) {
+					vx=Math.sqrt(vx*vx);
+					while (ball.getY()<HEIGHT) {
+						ball.move(vx, Math.sqrt(vy*vy));
+						pause(1000/FRAMES_PER_SEC);
+					}
+				} else {
+					vy=-Math.sqrt(vy*vy);
 				}
-			} else if (checkCorner(paddleTop.getX()+PADDLE_WIDTH,paddleTop.getY())==ball) {
-				vx=Math.sqrt(vx*vx);
-				while (ball.getY()<HEIGHT) {
-					ball.move(vx, Math.sqrt(vy*vy));
-					pause(1000/FRAMES_PER_SEC);
+			} else if (collider!=null){
+				if(bounceDirection==1){
+					vx=-Math.sqrt(vx*vx);
 				}
-			} else {
-				vy=-Math.sqrt(vy*vy);
-			}
-		} else if (collider!=null){
-			if(bounceDirection==1){
-				vx=-Math.sqrt(vx*vx);
-			}
-			if (bounceDirection==2){
-				vx=Math.sqrt(vx*vx);
-			}
-			if(bounceDirection==3){
-				vy=Math.sqrt(vy*vy);
-			}
-			if (bounceDirection==4){
-				vy=-Math.sqrt(vy*vy);
-			}
-			if(collider!=paddleTop&&collider!=paddle){
-				remove(collider);
+				if (bounceDirection==2){
+					vx=Math.sqrt(vx*vx);
+				}
+				if(bounceDirection==3){
+					vy=Math.sqrt(vy*vy);
+				}
+				if (bounceDirection==4){
+					vy=-Math.sqrt(vy*vy);
+				}
+				if(collider!=paddleTop&&collider!=paddle){
+					remove(collider);
+				}
 			}
 		}
+		decreaseLife();
 	}
 	
 	//This method returns the object the ball collides with, if there is a collision.
@@ -239,7 +224,25 @@ public class Breakout extends GraphicsProgram {
 			return null;
 		}
 	}
+	
 	private GObject checkCorner(double x, double y){
 		return getElementAt(x,y);
 	}
+	
+	private void decraseLife(){
+		turns--;
+		remove(livesCounter);
+		livesCounter = new GLabel ("LIVES: " + turns);
+		add(livesCounter);
+		if(turns>0) {
+			run();
+		} else {
+			GLabel gameOver = new GLabel ("YOU SUCK!");
+			gameOver.setFont("Cambria-60");
+			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
+			add (gameOver);
+			
+		}
+	}
+	
 }
