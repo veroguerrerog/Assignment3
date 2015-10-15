@@ -76,7 +76,7 @@ public class Breakout extends GraphicsProgram {
 	private double vy=-rgen.nextDouble(1.0, 3.0);
 	
 /** Animation refresh rate*/
-	private static final int FRAMES_PER_SEC = 60;
+	private static final int FRAMES_PER_SEC = 3;
 	
 /** Corner intersected; 1: right/left 2: up/down*/
 	private int bounceDirection;
@@ -176,7 +176,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	//This method returns the object the ball collides with, if there is a collision.
 	private GObject getCollidingObject(){
-		if (checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY())!=null){
+		if (checkCorner(ball.getX()+BALL_RADIUS,ball.getY())!=null){
 			bounceDirection=2;
 			return checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY());
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2)!=null){
