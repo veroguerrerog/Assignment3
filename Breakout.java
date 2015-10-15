@@ -44,8 +44,8 @@ public class Breakout extends GraphicsProgram {
 	private static final int BRICK_SEP = 4;
 
 /** Width of a brick */
-	private static final int BRICK_WIDTH =
-	  (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
+	private static final double BRICK_WIDTH =
+		(WIDTH - (NBRICKS_PER_ROW + 1) * BRICK_SEP) / (double)NBRICKS_PER_ROW;
 
 /** Height of a brick */
 	private static final int BRICK_HEIGHT = 8;
@@ -59,10 +59,117 @@ public class Breakout extends GraphicsProgram {
 /** Number of turns */
 	private static final int NTURNS = 3;
 
+/** Paddle definition*/
+	private GRect paddle = new GRect(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
+/** Ball definition*/
+	private GOval ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
+/**random number generator*/
+	private RandomGenerator rgen = RandomGenerator.getInstance();
+/** velocity definition*/
+	private double vx=rgen.nextDouble(1.0, 3.0);
+	private double vy=-rgen.nextDouble(1.0, 3.0);
+	
+/** Animation refresh rate*/
+	private static final int FRAMES_PER_SEC = 60;
+	
+/** Corner intersected; 1: right/left 2: up/down*/
+	private int bounceDirection;
+
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
-		/* You fill this in, along with any subsidiary methods */
+		setup();
+		animateBall();
 	}
-
+	private void setup(){
+		addMouseListeners();
+		//This sets the size of the window to the correct dimensions, because our window was initializing 22 pixels too narrow.
+		this.setSize(WIDTH+22, HEIGHT+86);//Correcting for window initializing errors.
+		//Creates the grid of colored bricks
+		createGrid();
+		//Adding the paddle to the canvas.
+		paddle.setFilled(true);
+		paddle.setFillColor(Color.BLACK);
+		add(paddle);
+		//Adding the ball to the canvas.
+		ball.setFilled(true);
+		ball.setFillColor(Color.BLUE);
+		add(ball);
+		if (rgen.nextBoolean(0.5)) vx = -vx;
+	}
+	//This method creates a grid of colored blocks.
+	private void createGrid(){
+		drawTwoRows(BRICK_Y_OFFSET, Color.RED);
+		drawTwoRows(BRICK_Y_OFFSET+2*BRICK_HEIGHT+2*BRICK_SEP, Color.ORANGE);
+		drawTwoRows(BRICK_Y_OFFSET+4*BRICK_HEIGHT+4*BRICK_SEP, Color.YELLOW);
+		drawTwoRows(BRICK_Y_OFFSET+6*BRICK_HEIGHT+6*BRICK_SEP, Color.GREEN);
+		drawTwoRows(BRICK_Y_OFFSET+8*BRICK_HEIGHT+8*BRICK_SEP, Color.CYAN);
+	}
+	//This method draws two rows with the same color, given the y coordinate and a color.
+	private void drawTwoRows(int y, Color color){
+		for(int i = 0; i<NBRICKS_PER_ROW; i++){
+			drawBrick(BRICK_SEP*(i+1)+BRICK_WIDTH*i, y,color);
+			drawBrick(BRICK_SEP*(i+1)+BRICK_WIDTH*i, y+BRICK_HEIGHT+BRICK_SEP,color);
+		}
+	}
+	//This method draws a brick given an x coordinate, y coordinate, and a color.
+	private void drawBrick(double x, double y, Color color){
+		GRect brick = new GRect(x,y,BRICK_WIDTH, BRICK_HEIGHT);
+		brick.setFilled(true);
+		brick.setFillColor(color);
+		brick.setColor(color);
+		add(brick);
+	}
+	//This method changes the x-coordinate of the paddle each time it is moved, while preventing the movement of the paddle off screen.
+	public void mouseMoved(MouseEvent e){
+		if(e.getX()>PADDLE_WIDTH/2&&e.getX()<getWidth()-PADDLE_WIDTH/2){
+			paddle.setLocation(e.getX()-PADDLE_WIDTH/2,getHeight()-PADDLE_HEIGHT-PADDLE_Y_OFFSET);
+		}
+	}
+	//This method makes the ball move(hopefully)
+	private void animateBall(){
+		while(ball.getX()>0||ball.getY()>0||ball.getX()<WIDTH||ball.getY()<HEIGHT){
+			ball.move(vx, vy);
+			pause(1000/FRAMES_PER_SEC);
+			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
+				vx=-vx;
+			}
+			if(ball.getY()<=0||ball.getY()>=HEIGHT-BALL_RADIUS*2){
+				vy=-vy;
+			}
+			GObject collider = getCollidingObject();
+			if(collider == paddle){
+				vy=-vy;
+			} else if (collider!=null){
+				if(bounceDirection==1){
+					vx=-vx;
+				}
+				if (bounceDirection==2){
+					vy=-vy;
+				}
+				remove(collider);
+			}
+		}
+	}
+	//This method returns the object the ball collides with, if there is a collision.
+	private GObject getCollidingObject(){
+		if (checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY())!=null){
+			bounceDirection=2;
+			return checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY());
+		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2)!=null){
+			bounceDirection=1;
+			return checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS/2);
+		} else if (checkCorner(ball.getX(),ball.getY()+BALL_RADIUS/2)!=null){
+			bounceDirection=1;
+			return checkCorner(ball.getX(),ball.getY()+BALL_RADIUS/2);
+		} else if (checkCorner(ball.getX()+2*BALL_RADIUS/2,ball.getY()+2*BALL_RADIUS)!=null){
+			bounceDirection=2;
+			return checkCorner(ball.getX()+BALL_RADIUS/2,ball.getY()+2*BALL_RADIUS);
+		} else {
+			return null;
+		}
+	}
+	private GObject checkCorner(double x, double y){
+		return getElementAt(x,y);
+	}
 }
