@@ -149,7 +149,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	//This method makes the ball move(hopefully)
 	private void animateBall(){
-		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && turns>0){
+		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && ball.getY()>HEIGHT && turns>0){
 			ball.move(vx, vy);
 			pause(1000/FRAMES_PER_SEC);
 			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
@@ -192,13 +192,15 @@ public class Breakout extends GraphicsProgram {
 					remove(collider);
 				}
 			}
-			if(ball.getY()>=HEIGHT) {
-				turns--;
-				livesCounter = new GLabel ("LIVES: " + turns);
-				
-				add(livesCounter);
-				setup();
-			}
+		}
+		turns--;
+		if(turns>0) {
+			remove(livesCounter);
+			livesCounter = new GLabel ("LIVES: " + turns);
+			add(livesCounter);
+			run();
+		} else {
+			println ("YOU SUCK!");
 		}
 	}
 	//This method returns the object the ball collides with, if there is a collision.
