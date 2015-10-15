@@ -76,8 +76,8 @@ public class Breakout extends GraphicsProgram {
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 /** velocity definition*/
-	private double vx=rgen.nextDouble(1.0, 3.0);
-	private double vy=-rgen.nextDouble(1.0, 3.0);
+	private double vx;
+	private double vy;
 	
 /** Animation refresh rate*/
 	private static final int FRAMES_PER_SEC = 60;
@@ -96,9 +96,12 @@ public class Breakout extends GraphicsProgram {
 	}
 	private void setup(){
 		//This sets the size of the window to the correct dimensions, because our window was initializing 22 pixels too narrow.
-		this.setSize(WIDTH, HEIGHT);//Correcting for window initializing errors.
+		this.setSize(WIDTH, HEIGHT);
 		//Creates the grid of colored bricks
 		createGrid();
+		//Initializing velocity
+		vx=rgen.nextDouble(1.0, 3.0);
+		vy=-rgen.nextDouble(1.0, 3.0);
 		//Adding the paddle to the canvas.
 		paddle.setFilled(true);
 		paddle.setFillColor(Color.BLACK);
