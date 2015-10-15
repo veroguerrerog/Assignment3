@@ -104,6 +104,7 @@ public class Breakout extends GraphicsProgram {
 		add(ball);
 		LIFE_COUNTER.setFont("Cambria-40");
 		LIFE_COUNTER.setLocation(50, 50);
+		add (LIFE_COUNTER);
 		if (rgen.nextBoolean(0.5)) vx = -vx;
 	}
 	//This method creates a grid of colored blocks.
