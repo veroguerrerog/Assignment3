@@ -98,9 +98,9 @@ public class Breakout extends GraphicsProgram {
 	}
 	private void setup(){
 		this.setSize(WIDTH, HEIGHT);	//This sets the size of the window to the correct dimensions
-		//if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
-			//createGrid();
-		
+		if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
+			createGrid();
+		}
 		//Initializing velocity
 		vx=rgen.nextDouble(1.0, 3.0);
 		vy=-rgen.nextDouble(1.0, 3.0);
@@ -157,21 +157,7 @@ public class Breakout extends GraphicsProgram {
 			bounceWalls();
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
-				if (checkCorner(paddle.getX(),paddle.getY())==ball) {
-					vx=-Math.sqrt(vx*vx);
-					while (ball.getY()<HEIGHT) {
-						ball.move(vx, Math.sqrt(vy*vy));
-						pause(1000/FRAMES_PER_SEC);
-					}
-				} else if (checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY())==ball) {
-					vx=Math.sqrt(vx*vx);
-					while (ball.getY()<HEIGHT) {
-						ball.move(vx, Math.sqrt(vy*vy));
-						pause(1000/FRAMES_PER_SEC);
-					}
-				} else {
-					vy=-Math.sqrt(vy*vy);
-				}
+				bouncePaddle();
 			} else if (collider!=null){
 				if(bounceDirection==1){
 					vx=-Math.sqrt(vx*vx);
@@ -193,6 +179,7 @@ public class Breakout extends GraphicsProgram {
 		decreaseLife();
 	}
 	
+	//This method defines the direction of the ball when it bounces off the top and side walls.
 	private void bounceWalls(){
 		if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
 			vx=-vx;
@@ -224,6 +211,24 @@ public class Breakout extends GraphicsProgram {
 	
 	private GObject checkCorner(double x, double y){
 		return getElementAt(x,y);
+	}
+	
+	private void bouncePaddle(){
+		if (checkCorner(paddle.getX(),paddle.getY())==ball) {
+			vx=-Math.sqrt(vx*vx);
+			while (ball.getY()<HEIGHT) {
+				ball.move(vx, Math.sqrt(vy*vy));
+				pause(1000/FRAMES_PER_SEC);
+			}
+		} else if (checkCorner(paddle.getX()+PADDLE_WIDTH,paddle.getY())==ball) {
+			vx=Math.sqrt(vx*vx);
+			while (ball.getY()<HEIGHT) {
+				ball.move(vx, Math.sqrt(vy*vy));
+				pause(1000/FRAMES_PER_SEC);
+			}
+		} else {
+			vy=-Math.sqrt(vy*vy);
+		}
 	}
 	
 	private void decreaseLife(){
