@@ -87,11 +87,11 @@ public class Breakout extends GraphicsProgram {
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
+		addMouseListeners();
 		setup();
 		animateBall();
 	}
 	private void setup(){
-		addMouseListeners();
 		//This sets the size of the window to the correct dimensions, because our window was initializing 22 pixels too narrow.
 		this.setSize(WIDTH, HEIGHT);//Correcting for window initializing errors.
 		//Creates the grid of colored bricks
