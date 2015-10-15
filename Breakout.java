@@ -138,8 +138,11 @@ public class Breakout extends GraphicsProgram {
 			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
 				vx=-vx;
 			}
-			if(ball.getY()<=0||ball.getY()>=HEIGHT-BALL_RADIUS*2){
+			if(ball.getY()<=0){
 				vy=-vy;
+			}
+			if(ball.getY()>=HEIGHT-PADDLE_Y_OFFSET-PADDLE_HEIGHT-BALL_RADIUS*2) { //Lowest Y location of ball without loosing
+				remove(ball);
 			}
 			GObject collider = getCollidingObject();
 			if(collider == paddle){
