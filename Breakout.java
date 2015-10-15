@@ -61,10 +61,13 @@ public class Breakout extends GraphicsProgram {
 
 /** Paddle definition*/
 	private GRect paddle = new GRect(getWidth()/2-PADDLE_WIDTH/2, HEIGHT-BRICK_HEIGHT-PADDLE_Y_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT);
+	
 /** Ball definition*/
 	private GOval ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
+	
 /**random number generator*/
 	private RandomGenerator rgen = RandomGenerator.getInstance();
+	
 /** velocity definition*/
 	private double vx=rgen.nextDouble(1.0, 3.0);
 	private double vy=-rgen.nextDouble(1.0, 3.0);
