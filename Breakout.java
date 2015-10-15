@@ -123,13 +123,11 @@ public class Breakout extends GraphicsProgram {
 	}
 	//This method creates a grid of colored blocks.
 	private void createGrid(){
-		if (NTURNS>2) {
-			drawTwoRows(BRICK_Y_OFFSET, Color.RED);
-			drawTwoRows(BRICK_Y_OFFSET+2*BRICK_HEIGHT+2*BRICK_SEP, Color.ORANGE);
-			drawTwoRows(BRICK_Y_OFFSET+4*BRICK_HEIGHT+4*BRICK_SEP, Color.YELLOW);
-			drawTwoRows(BRICK_Y_OFFSET+6*BRICK_HEIGHT+6*BRICK_SEP, Color.GREEN);
-			drawTwoRows(BRICK_Y_OFFSET+8*BRICK_HEIGHT+8*BRICK_SEP, Color.CYAN);
-		}
+		drawTwoRows(BRICK_Y_OFFSET, Color.RED);
+		drawTwoRows(BRICK_Y_OFFSET+2*BRICK_HEIGHT+2*BRICK_SEP, Color.ORANGE);
+		drawTwoRows(BRICK_Y_OFFSET+4*BRICK_HEIGHT+4*BRICK_SEP, Color.YELLOW);
+		drawTwoRows(BRICK_Y_OFFSET+6*BRICK_HEIGHT+6*BRICK_SEP, Color.GREEN);
+		drawTwoRows(BRICK_Y_OFFSET+8*BRICK_HEIGHT+8*BRICK_SEP, Color.CYAN);
 	}
 	//This method draws two rows with the same color, given the y coordinate and a color.
 	private void drawTwoRows(int y, Color color){
