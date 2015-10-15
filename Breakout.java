@@ -229,7 +229,7 @@ public class Breakout extends GraphicsProgram {
 		return getElementAt(x,y);
 	}
 	
-	private void decraseLife(){
+	private void decreaseLife(){
 		turns--;
 		remove(livesCounter);
 		livesCounter = new GLabel ("LIVES: " + turns);
