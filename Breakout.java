@@ -85,20 +85,23 @@ public class Breakout extends GraphicsProgram {
 /** Side intersected; 1: right  2: left  3: up  4: down*/
 	private int bounceDirection;
 
-	
+/* Method: init() */
+/** Sets up the initial conditions of the program*/
+	public void init(){
+		addMouseListeners();
+		setup();
+	}
 
 /* Method: run() */
 /** Runs the Breakout program. */
-	public void run() {
-		addMouseListeners();
-		setup();
+	public void run(){
 		animateBall();
 	}
 	private void setup(){
-		//This sets the size of the window to the correct dimensions, because our window was initializing 22 pixels too narrow.
+		//This sets the size of the window to the correct dimensions
 		this.setSize(WIDTH, HEIGHT);
-		//Creates the grid of colored bricks
-		if (turns==NTURNS) {
+		//Creates the grid of colored bricks only the first round of the game
+		if (turns==NTURNS){
 			createGrid();
 		}
 		//Initializing velocity
@@ -158,46 +161,7 @@ public class Breakout extends GraphicsProgram {
 		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && ball.getY()<HEIGHT && turns>0){
 			ball.move(vx, vy);
 			pause(1000/FRAMES_PER_SEC);
-			if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
-				vx=-vx;
-			}
-			if(ball.getY()<=0){
-				vy=-vy;
-			}
-			GObject collider = getCollidingObject();
-			if(collider == paddleTop){
-				if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
-					vx=-Math.sqrt(vx*vx);
-					while (ball.getY()<HEIGHT) {
-						ball.move(vx, Math.sqrt(vy*vy));
-						pause(1000/FRAMES_PER_SEC);
-					}
-				} else if (checkCorner(paddleTop.getX()+PADDLE_WIDTH,paddleTop.getY())==ball) {
-					vx=Math.sqrt(vx*vx);
-					while (ball.getY()<HEIGHT) {
-						ball.move(vx, Math.sqrt(vy*vy));
-						pause(1000/FRAMES_PER_SEC);
-					}
-				} else {
-					vy=-Math.sqrt(vy*vy);
-				}
-			} else if (collider!=null){
-				if(bounceDirection==1){
-					vx=-Math.sqrt(vx*vx);
-				}
-				if (bounceDirection==2){
-					vx=Math.sqrt(vx*vx);
-				}
-				if(bounceDirection==3){
-					vy=Math.sqrt(vy*vy);
-				}
-				if (bounceDirection==4){
-					vy=-Math.sqrt(vy*vy);
-				}
-				if(collider!=paddleTop&&collider!=paddle){
-					remove(collider);
-				}
-			}
+			changeBallDirection();
 		}
 		turns--;
 		remove(livesCounter);
@@ -210,9 +174,52 @@ public class Breakout extends GraphicsProgram {
 			gameOver.setFont("Cambria-60");
 			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
 			add (gameOver);
-			
 		}
 	}
+	
+	private void changeBallDirection(){
+		if(ball.getX()<=0||ball.getX()>=WIDTH-BALL_RADIUS*2){
+			vx=-vx;
+		}
+		if(ball.getY()<=0){
+			vy=-vy;
+		}
+		GObject collider = getCollidingObject();
+		if(collider == paddleTop){
+			if (checkCorner(paddleTop.getX(),paddleTop.getY())==ball) {
+				vx=-Math.sqrt(vx*vx);
+				while (ball.getY()<HEIGHT) {
+					ball.move(vx, Math.sqrt(vy*vy));
+					pause(1000/FRAMES_PER_SEC);
+				}
+			} else if (checkCorner(paddleTop.getX()+PADDLE_WIDTH,paddleTop.getY())==ball) {
+				vx=Math.sqrt(vx*vx);
+				while (ball.getY()<HEIGHT) {
+					ball.move(vx, Math.sqrt(vy*vy));
+					pause(1000/FRAMES_PER_SEC);
+				}
+			} else {
+				vy=-Math.sqrt(vy*vy);
+			}
+		} else if (collider!=null){
+			if(bounceDirection==1){
+				vx=-Math.sqrt(vx*vx);
+			}
+			if (bounceDirection==2){
+				vx=Math.sqrt(vx*vx);
+			}
+			if(bounceDirection==3){
+				vy=Math.sqrt(vy*vy);
+			}
+			if (bounceDirection==4){
+				vy=-Math.sqrt(vy*vy);
+			}
+			if(collider!=paddleTop&&collider!=paddle){
+				remove(collider);
+			}
+		}
+	}
+	
 	//This method returns the object the ball collides with, if there is a collision.
 	private GObject getCollidingObject(){
 		if (checkCorner(ball.getX()+2*BALL_RADIUS+1,ball.getY()+BALL_RADIUS)!=null){
