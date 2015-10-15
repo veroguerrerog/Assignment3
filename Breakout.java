@@ -77,6 +77,9 @@ public class Breakout extends GraphicsProgram {
 	
 /** Corner intersected; 1: right/left 2: up/down*/
 	private int bounceDirection;
+	
+/** Counts lives left before Game Over*/	
+	private GLabel LIFE_COUNTER = new GLabel ("3");
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -99,6 +102,8 @@ public class Breakout extends GraphicsProgram {
 		ball.setFilled(true);
 		ball.setFillColor(Color.BLUE);
 		add(ball);
+		LIFE_COUNTER.setFont("Cambria-40");
+		LIFE_COUNTER.setLocation(APPLICATION_WIDTH/16, 16);
 		if (rgen.nextBoolean(0.5)) vx = -vx;
 	}
 	//This method creates a grid of colored blocks.
