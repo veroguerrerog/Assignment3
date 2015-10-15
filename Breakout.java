@@ -182,7 +182,7 @@ public class Breakout extends GraphicsProgram {
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS)!=null){
 			bounceDirection=1;
 			return checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+BALL_RADIUS);
-		} else if (checkCorner(ball.getX(),ball.getY()+BALL_RADIUS/2)!=null){
+		} else if (checkCorner(ball.getX(),ball.getY()+BALL_RADIUS)!=null){
 			bounceDirection=1;
 			return checkCorner(ball.getX(),ball.getY()+BALL_RADIUS);
 		} else if (checkCorner(ball.getX()+2*BALL_RADIUS,ball.getY()+2*BALL_RADIUS)!=null){
