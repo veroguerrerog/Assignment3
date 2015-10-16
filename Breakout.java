@@ -28,7 +28,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int HEIGHT = APPLICATION_HEIGHT;
 
 /** Dimensions of the paddle */
-	private static final int PADDLE_WIDTH = 200;
+	private static final int PADDLE_WIDTH = 60;
 	private static final int PADDLE_HEIGHT = 10;
 
 /** Offset of the paddle up from the bottom */
@@ -101,24 +101,36 @@ public class Breakout extends GraphicsProgram {
 		if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
 			createGrid();
 		}
+		createPaddle();
+		createBall();
+		createLivesCounter();
 		//Initializing velocity
 		vx=rgen.nextDouble(1.0, 3.0);
 		vy=-rgen.nextDouble(1.0, 3.0);
-		//Adding the paddle to the canvas.
+		if (rgen.nextBoolean(0.5)) vx = -vx;
+	}
+
+	//Adding the paddle to the canvas.
+	private void createPaddle(){
 		paddle.setFilled(true);
 		paddle.setFillColor(Color.BLACK);
 		add(paddle);
-		//Adding the ball to the canvas.
+	}
+
+	//Adding the ball to the canvas.
+	private void createBall(){
 		ball = new GOval(WIDTH/2-BALL_RADIUS, HEIGHT-PADDLE_HEIGHT-PADDLE_Y_OFFSET-BALL_RADIUS*2, BALL_RADIUS*2, BALL_RADIUS*2);
 		ball.setColor(Color.BLUE);
 		ball.setFilled(true);
 		ball.setFillColor(Color.BLUE);
 		add(ball);
-		//Adding the lives counter to the canvas.
+	}
+
+	//Adding the lives counter to the canvas.
+	private void createLivesCounter(){
 		livesCounter.setFont("Cambria-40");
 		livesCounter.setLocation(WIDTH-livesCounter.getWidth(), livesCounter.getHeight());
 		add (livesCounter);
-		if (rgen.nextBoolean(0.5)) vx = -vx;
 	}
 	//This method creates a grid of colored blocks.
 	private void createGrid(){
