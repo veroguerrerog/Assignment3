@@ -83,6 +83,9 @@ public class Breakout extends GraphicsProgram {
 	
 /** Side intersected; 1: right  2: left  3: up  4: down*/
 	private int bounceDirection;
+	
+/** Number of bricks not yet destroyed*/	
+	private int bricksCounter = NBRICKS_PER_ROW * NBRICK_ROWS;
 
 /* Method: init() */
 /** Sets up the initial conditions of the program*/
@@ -96,6 +99,9 @@ public class Breakout extends GraphicsProgram {
 	public void run(){
 		animateBall();
 	}
+	
+/* Method: setup() */
+/** Sets up the initial conditions of the graphics window*/
 	private void setup(){
 		this.setSize(WIDTH, HEIGHT);	//This sets the size of the window to the correct dimensions
 		if (turns==NTURNS){		//Creates the grid of colored bricks only the first round of the game
@@ -104,12 +110,35 @@ public class Breakout extends GraphicsProgram {
 		createPaddle();
 		createBall();
 		createLivesCounter();
-		//Initializing velocity
-		vx=rgen.nextDouble(1.0, 3.0);
-		vy=-rgen.nextDouble(1.0, 3.0);
-		if (rgen.nextBoolean(0.5)) vx = -vx;
+		initializeVelocity();
 	}
-
+	
+	//This method creates a grid of colored blocks.
+	private void createGrid(){
+		drawTwoRows(BRICK_Y_OFFSET, Color.RED);
+		drawTwoRows(BRICK_Y_OFFSET+2*BRICK_HEIGHT+2*BRICK_SEP, Color.ORANGE);
+		drawTwoRows(BRICK_Y_OFFSET+4*BRICK_HEIGHT+4*BRICK_SEP, Color.YELLOW);
+		drawTwoRows(BRICK_Y_OFFSET+6*BRICK_HEIGHT+6*BRICK_SEP, Color.GREEN);
+		drawTwoRows(BRICK_Y_OFFSET+8*BRICK_HEIGHT+8*BRICK_SEP, Color.CYAN);
+	}
+	
+	//This method draws two rows with the same color, given the y coordinate and a color.
+	private void drawTwoRows(int y, Color color){
+		for(int i = 0; i<NBRICKS_PER_ROW; i++){
+			drawBrick(BRICK_SEP*(i+1)+BRICK_WIDTH*i, y,color);
+			drawBrick(BRICK_SEP*(i+1)+BRICK_WIDTH*i, y+BRICK_HEIGHT+BRICK_SEP,color);
+		}
+	}
+	
+	//This method draws a brick given an x coordinate, y coordinate, and a color.
+	private void drawBrick(double x, double y, Color color){
+		GRect brick = new GRect(x,y,BRICK_WIDTH, BRICK_HEIGHT);
+		brick.setFilled(true);
+		brick.setFillColor(color);
+		brick.setColor(color);
+		add(brick);
+	}
+	
 	//Adding the paddle to the canvas.
 	private void createPaddle(){
 		paddle.setFilled(true);
@@ -132,29 +161,14 @@ public class Breakout extends GraphicsProgram {
 		livesCounter.setLocation(WIDTH-livesCounter.getWidth(), livesCounter.getHeight());
 		add (livesCounter);
 	}
-	//This method creates a grid of colored blocks.
-	private void createGrid(){
-		drawTwoRows(BRICK_Y_OFFSET, Color.RED);
-		drawTwoRows(BRICK_Y_OFFSET+2*BRICK_HEIGHT+2*BRICK_SEP, Color.ORANGE);
-		drawTwoRows(BRICK_Y_OFFSET+4*BRICK_HEIGHT+4*BRICK_SEP, Color.YELLOW);
-		drawTwoRows(BRICK_Y_OFFSET+6*BRICK_HEIGHT+6*BRICK_SEP, Color.GREEN);
-		drawTwoRows(BRICK_Y_OFFSET+8*BRICK_HEIGHT+8*BRICK_SEP, Color.CYAN);
-	}
-	//This method draws two rows with the same color, given the y coordinate and a color.
-	private void drawTwoRows(int y, Color color){
-		for(int i = 0; i<NBRICKS_PER_ROW; i++){
-			drawBrick(BRICK_SEP*(i+1)+BRICK_WIDTH*i, y,color);
-			drawBrick(BRICK_SEP*(i+1)+BRICK_WIDTH*i, y+BRICK_HEIGHT+BRICK_SEP,color);
-		}
-	}
-	//This method draws a brick given an x coordinate, y coordinate, and a color.
-	private void drawBrick(double x, double y, Color color){
-		GRect brick = new GRect(x,y,BRICK_WIDTH, BRICK_HEIGHT);
-		brick.setFilled(true);
-		brick.setFillColor(color);
-		brick.setColor(color);
-		add(brick);
-	}
+		
+	//Initializing velocity
+	private void initializeVelocity(){
+		vx=rgen.nextDouble(1.0, 3.0);
+		vy=-rgen.nextDouble(1.0, 3.0);
+		if (rgen.nextBoolean(0.5)) vx = -vx;
+	}		
+	
 	//This method changes the x-coordinate of the paddle each time it is moved, while preventing the movement of the paddle off screen.
 	public void mouseMoved(MouseEvent e){
 		if(e.getX()>PADDLE_WIDTH/2&&e.getX()<getWidth()-PADDLE_WIDTH/2){
@@ -172,6 +186,10 @@ public class Breakout extends GraphicsProgram {
 				bouncePaddle();
 			} else if (collider!=null && collider!=livesCounter){
 				bounceBrick(collider);
+				bricksCounter--;
+				if (bricksCounter<1){
+					gameWon();
+				}
 			}
 		}
 		decreaseLife();
@@ -247,6 +265,13 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	private void gameWon(){
+		GLabel gameWon = new GLabel ("YOU WIN!");
+		gameWon.setFont("Cambria-60");
+		gameWon.setLocation(getWidth()/2-gameWon.getWidth()/2,getHeight()/2+gameWon.getHeight()/2);
+		add (gameWon);
+	}
+	
 	private void decreaseLife(){
 		turns--;
 		remove(livesCounter);
@@ -256,10 +281,15 @@ public class Breakout extends GraphicsProgram {
 			init();
 			run();
 		} else {
-			GLabel gameOver = new GLabel ("YOU SUCK!");
-			gameOver.setFont("Cambria-60");
-			gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
-			add (gameOver);
+			gameOver();
 		}
 	}
+	
+	private void gameOver(){
+		GLabel gameOver = new GLabel ("YOU SUCK!");
+		gameOver.setFont("Cambria-60");
+		gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
+		add (gameOver);
+	}
+	
 }
