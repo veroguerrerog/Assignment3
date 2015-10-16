@@ -157,7 +157,7 @@ public class Breakout extends GraphicsProgram {
 
 	//Adding the lives counter to the canvas.
 	private void createLivesCounter(){
-		livesCounter.setFont("Cambria-40");
+		livesCounter.setFont("Candara-40");
 		livesCounter.setLocation(WIDTH-livesCounter.getWidth(), livesCounter.getHeight());
 		add (livesCounter);
 	}
