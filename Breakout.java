@@ -177,7 +177,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	//This method makes the ball move(hopefully)
 	private void animateBall(){
-		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && ball.getY()<HEIGHT && turns>0 && bricksCounter<1){
+		while(ball.getX()>=-3 && ball.getY()>=-3 && ball.getX()<WIDTH && ball.getY()<HEIGHT && turns>0 && bricksCounter>0){
 			ball.move(vx, vy);
 			pause(1000/FRAMES_PER_SEC);
 			bounceWalls();
