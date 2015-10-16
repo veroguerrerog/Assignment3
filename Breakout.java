@@ -28,7 +28,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int HEIGHT = APPLICATION_HEIGHT;
 
 /** Dimensions of the paddle */
-	private static final int PADDLE_WIDTH = 60;
+	private static final int PADDLE_WIDTH = 390;
 	private static final int PADDLE_HEIGHT = 10;
 
 /** Offset of the paddle up from the bottom */
@@ -79,7 +79,7 @@ public class Breakout extends GraphicsProgram {
 	private double vy;
 	
 /** Animation refresh rate*/
-	private static final int FRAMES_PER_SEC = 200;
+	private static final int FRAMES_PER_SEC = 800;
 	
 /** Side intersected; 1: right  2: left  3: up  4: down*/
 	private int bounceDirection;
