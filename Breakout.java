@@ -192,7 +192,9 @@ public class Breakout extends GraphicsProgram {
 				}
 			}
 		}
-		decreaseLife();
+		if (bricksCounter>0){
+			decreaseLife();
+		}
 	}
 	
 	//This method defines the direction of the ball when it bounces off the top and side walls.
