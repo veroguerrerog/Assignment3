@@ -269,7 +269,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private void gameWon(){
 		GLabel gameWon = new GLabel ("YOU WIN!");
-		gameWon.setFont("Cambria-60");
+		gameWon.setFont("Candara-60");
 		gameWon.setLocation(getWidth()/2-gameWon.getWidth()/2,getHeight()/2+gameWon.getHeight()/2);
 		add (gameWon);
 	}
@@ -289,7 +289,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private void gameOver(){
 		GLabel gameOver = new GLabel ("YOU SUCK!");
-		gameOver.setFont("Cambria-60");
+		gameOver.setFont("Candara-60");
 		gameOver.setLocation(getWidth()/2-gameOver.getWidth()/2,getHeight()/2+gameOver.getHeight()/2);
 		add (gameOver);
 	}
